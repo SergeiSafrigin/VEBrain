@@ -48,6 +48,7 @@ public class Main {
 		portOpen = false;
 		checkForDebugMode();
 		sender = new Sender(debug);
+		System.out.println("hello");
 		receiver = new Receiver(sender, debug);
 		
 		while(!running){
