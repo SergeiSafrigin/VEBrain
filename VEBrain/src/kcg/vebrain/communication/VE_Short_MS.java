@@ -55,6 +55,7 @@ public class VE_Short_MS {
 		ans[5] = (string2int(ms.substring(13, 15)))/CONV3;
 		ans[6] = ((char2int(ms.charAt(15))-(RANGE/2))/4.0);
 		ans[7] = char2int(ms.charAt(16));
+//		ans[7] = Integer.parseInt(ms.charAt(16)+"");
 		ans[8] = string2int(ms.substring(17));
 		return ans;
 	}

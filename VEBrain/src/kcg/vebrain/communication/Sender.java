@@ -11,11 +11,11 @@ public class Sender{
 		this.debug = debug;
 	}
 
-	public void writetoport(String outString) {
+	public void writeToPort(String outString) {
 		if (outputStream == null)
 			return;
 		try { 
-			outputStream.write(outString.getBytes());
+			outputStream.write((outString+"\r\n").getBytes());
 		} catch (IOException e) {
 			exceptionReport(e);
 		}

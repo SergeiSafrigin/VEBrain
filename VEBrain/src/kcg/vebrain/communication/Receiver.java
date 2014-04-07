@@ -37,7 +37,7 @@ public class Receiver implements SerialPortEventListener{
 		case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
-			byte[] readBuffer = new byte[64];
+			byte[] readBuffer = new byte[20];
 			try {
 				// read data
 				int numBytes = inputStream.read(readBuffer);
@@ -45,7 +45,7 @@ public class Receiver implements SerialPortEventListener{
 
 				//send the received data to the GUI
 				String result = new String(readBuffer,0,numBytes);
-				System.out.println(result);
+				decodeMsg(result);
 			} catch (IOException e) {
 				exceptionReport(e);
 			}
@@ -58,5 +58,11 @@ public class Receiver implements SerialPortEventListener{
 			System.out.println(e.toString());
 			e.printStackTrace();
 		}
+	}
+	
+	public void decodeMsg(String codedMsg){
+		System.out.print(codedMsg);
+		String msg = VE_Short_MS.fromMS(codedMsg);
+		System.out.println("Decoded Msg: "+msg);
 	}
 }

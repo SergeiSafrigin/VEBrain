@@ -8,14 +8,17 @@ import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Scanner;
 import java.util.TooManyListenersException;
 
 import kcg.vebrain.communication.Receiver;
 import kcg.vebrain.communication.Sender;
+import kcg.vebrain.communication.Short_MS;
+import kcg.vebrain.communication.VE_Short_MS;
 
-public class Main {
+public class Main{
 	private static final int DEBUG_MODE = 1;
 	private static final int NORMAL_MODE = 2;
 
@@ -39,6 +42,11 @@ public class Main {
 	private int stopbits = 1;
 
 	public static void main(String[] args) {
+//		String from = Short_MS.toMS(0, 32.103457, 35.193302, 100, 954, 310, 10, 1, "");
+//		System.out.println("msg = "+from);
+//		System.out.println(Short_MS.fromMS(from));
+//		System.out.println(VE_Short_MS.convertBackLatlon(VE_Short_MS.convertLatlon(32.103457)));
+//		System.out.println(VE_Short_MS.fromMS("!%#%qPTC0"));
 		System.out.println("Starting..");
 		Main main = new Main();
 	}
@@ -48,7 +56,6 @@ public class Main {
 		portOpen = false;
 		checkForDebugMode();
 		sender = new Sender(debug);
-		System.out.println("hello");
 		receiver = new Receiver(sender, debug);
 		
 		while(!running){
@@ -60,13 +67,12 @@ public class Main {
 		
 		System.out.println("Send a message");
 		while(running){
-			System.out.print("> ");
-			String msg = reader.nextLine();
-			if (msg.equals("-1"))
+			System.out.println("Enter \"stop\" to exit.");
+			String msg = reader.next();
+			if (msg.equals("stop"))
 				running = false;
-			else {
-				sender.writetoport(msg);
-			}
+			else
+				sender.writeToPort(msg);
 		}
 		closePort();
 	}
@@ -88,7 +94,6 @@ public class Main {
 			System.out.println("Wrong number, Normal mode is activated");
 		}
 	}
-
 
 	private void findPorts() {
 		System.out.println("Searching for ports");
